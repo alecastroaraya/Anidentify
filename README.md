@@ -11,23 +11,29 @@
 - [Licencia](#licencia)
 
 ## Acerca del app
-Anidentify es una aplicación web que permite al usuario subir una imagen con un personaje de animé. Luego de esto, identifica el personaje y muestra información sobre el personaje al usuario, tal como el nombre completo y de qué franquicia proviene.
+Anidentify es una aplicación web que permite al usuario subir una imagen con un personaje de animé. Luego de esto, identifica el personaje y muestra el nombre completo y de qué franquicia proviene, junto con la probabilidad de que sea ese personaje y otras opciones de personaje menos probables.
 
 
 ## Tecnologias utilizadas
 Se utilizaron las siguientes tecnologías para desarrollar la aplicación:
 - **Flask** (Servidor del backend)
-- **JavaScript/HTML** (Frontend)
+- **JavaScript/HTML/Bootstrap** (Frontend)
 - **Oracle Cloud** (Alojamiento de la aplicación web)
 - **Python** (Lenguaje de programación)
 
 ## Creditos
 **Paper fundamento:**
-[AniWho : A Quick and Accurate Way to Classify Anime Character Faces in Images](https://paperswithcode.com/paper/aniwho-a-quick-and-accurate-way-to-classify) de Martinus Grady Naftali, Jason Sebastian Sulistyawan, Kelvin Julian
+[AniWho : A Quick and Accurate Way to Classify Anime Character Faces in Images](https://paperswithcode.com/paper/aniwho-a-quick-and-accurate-way-to-classify) de Martinus Grady Naftali, Jason Sebastian Sulistyawan, Kelvin Julian.
 
 **Datasets utilizados:**
-[Tagged Anime Illustrations](https://www.kaggle.com/datasets/mylesoneill/tagged-anime-illustrations) de Myles O'Neill
+[Tagged Anime Illustrations](https://www.kaggle.com/datasets/mylesoneill/tagged-anime-illustrations) de Myles O'Neill.
 [Anime Face Dataset by Character Name](https://paperswithcode.com/dataset/anime-face-dataset-by-character-name) de Naftali et al.
+
+**Recursos utilizados para la detección de caras:**
+[LBPCascade_animeface](https://github.com/nagadomi/lbpcascade_animeface) se utilizó como archivo de cascade de OpenCV para poder detectar específicamente caras de tipo animé en las imágenes.
+
+**Recursos utilizados para el HTML/CSS:**
+[Bootstrap](https://getbootstrap.com/) se utilizó para el frontend de la página web.
 
 ## Licencia
 
