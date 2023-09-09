@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Anidentify</title>
+    <link rel="icon" href="../static/images/anidentify-logo.png" type="image/icon type">
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+  </head>
+
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
+    <div class="container-lg">
+      <a href="/" class="navbar-brand">
+        <!-- Logo Image -->
+        <img src="../static/images/anidentify-logo.png" width="45" alt="" class="d-inline-block align-middle mr-2">
+        <!-- Logo Text -->
+        <span class="navbar-brand" href="/">Anidentify</span>
+      </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link" id="navbarDropdown" href="/" role="button" aria-expanded="false">Identificar personaje</a>
+                  </li>
+
+                <li class="nav-item dropdown">
+                  <a class="nav-link" id="navbarDropdown" href="/como-usar" role="button" aria-expanded="false">Cómo usar Anidentify</a>
+                </li>
+            </ul>
+
+    </div>
+    </div>
+</nav>
+
+<br />
+<br />
+<br />
+
+{% with messages = get_flashed_messages(with_categories=true) %} {% if
+messages %} {% for category, message in messages %} {% if category ==
+'error' %}
+<div class="alert alert-danger alter-dismissable fade show" role="alert">
+    {{ message }}
+</div>
+{% else %}
+<div class="alert alert-success alter-dismissable fade show" role="alert">
+    {{ message }}
+</div>
+{% endif %} {% endfor %} {% endif %} {% endwith %}
+
+  <body>
+    <div class="container mt-5 border">
+        <div class="row">
+            <!-- Columna del Formulario de Subida de Imagen -->
+            
+            <div class="col-md-4 border-end text-center">
+                <h1>Sube una imagen de un personaje de animé</h1>
+                <br />
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="file" name="file" accept=".png, .jpg, .jpeg, .gif, .webp" class="form-control-file">
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-primary">Subir</button>
+                </form>
+                <br />
+            </div>
+
+            <!-- Columna de la Información de la Imagen Subida -->
+            <div class="col-md-8 text-center">
+                {% if filename %}
+                    <h2>Personaje encontrado!:</h2>
+                    <ul style="text-align:left">
+                        <li><strong>Nombre del personaje:</strong> {{ nombre_personaje }}</li>
+                        <li><strong>Proviene de:</strong> {{ nombre_anime }}</li>
+                        <li><strong>Probabilidad:</strong> {{ confianza }}%</li>
+                        <li><strong>Personajes menos probables:</strong> {{ filename }}</li>
+                    </ul>
+                    <div class="mt-3">
+                        <h5>Imagen subida:</h5>
+                        <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Imagen" style="max-width: 50%; height: auto;">
+                    </div>
+                {% else %}
+                    <h2>Por favor sube una imagen!</h2>
+                    <br />
+                    <img src="../static/images/thumbsup2.png" alt="Imagen" style="max-width: 30%; height: auto;">
+                {% endif %}
+            </div>
+        </div>
+
+        <footer class="bg-dark text-white text-center p-3 fixed-bottom">
+            <a href="https://github.com/alecastroaraya/Anidentify" target="_blank" class="text-white">
+                <i class="fab fa-github fa-2x"></i>
+            </a>
+        </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+  </body>
+
+</html>
