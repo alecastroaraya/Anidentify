@@ -72,14 +72,14 @@ messages %} {% for category, message in messages %} {% if category ==
                 {% if filename %}
                     <h2>Personaje encontrado!:</h2>
                     <ul style="text-align:left">
-                        <li><strong>Nombre del personaje:</strong> {{ nombre_personaje }}</li>
-                        <li><strong>Proviene de:</strong> {{ nombre_anime }}</li>
-                        <li><strong>Probabilidad:</strong> {{ confianza }}%</li>
-                        <li><strong>Personajes menos probables:</strong> {{ filename }}</li>
+                        <li><strong>Nombre del personaje más probable:</strong> {{ resultados[0][0] }}</li>
+                        <li><strong>Proviene de:</strong> {{ resultados[0][1] }}</li>
+                        <li><strong>Probabilidad:</strong> {{ resultados[0][2] }}%</li>
+                        <li><strong>Personajes menos probables:</strong> {{ resultados[1][0] }} ({{ resultados[1][2] }}%), {{ resultados[2][0] }} ({{ resultados[2][2] }}%), {{ resultados[3][0] }} ({{ resultados[3][2] }}%), {{ resultados[4][0] }} ({{ resultados[4][2] }}%)</li>
                     </ul>
                     <div class="mt-3">
                         <h5>Imagen subida:</h5>
-                        <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Imagen" style="max-width: 50%; height: auto;">
+                        <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Imagen" style="max-width: 45%; height: auto;">
                     </div>
                 {% else %}
                     <h2>Por favor sube una imagen!</h2>

@@ -48,13 +48,11 @@ def build_dataset(subset):
       batch_size=1)
 
 def predecir_personajes(img_path):
-    # Se carga y prepara la imagen para la predicción
-
     IMAGE_SIZE = (96,96)
     normalization_layer = tf.keras.layers.Rescaling(1. / 255)
     img = tf.keras.utils.load_img(img_path, target_size=IMAGE_SIZE)
     img_array = tf.keras.utils.img_to_array(img)
-    img_array = tf.expand_dims(img_array, 0)  # Se crea un batch
+    img_array = tf.expand_dims(img_array, 0)
     img_array = normalization_layer(img_array)
 
     train_ds = build_dataset("training")
@@ -64,29 +62,22 @@ def predecir_personajes(img_path):
     plt.axis('off')
     plt.show()
 
-    # Realiza la predicción
     predicciones = modelo_cargado.predict(img_array)
+    probabilidades = tf.nn.softmax(predicciones[0])
+    top_5_indices = tf.math.top_k(probabilidades, k=5).indices.numpy()
+    top_5_probabilidades = tf.gather(probabilidades, top_5_indices).numpy() * 100
 
-    # Obtiene el índice de la predicción más probable
-    index_predecido = np.argmax(predicciones[0])
-    confianza = 100 * tf.nn.softmax(predicciones[0])[index_predecido]
-    valor_numerico_confianza = confianza.numpy()
+    nombres_personajes_anime = [class_names[i] for i in top_5_indices]
 
-    nombre_personaje_anime = class_names[index_predecido]
-    # Imprime el resultado
-    print(f"Este personaje posiblemente es: {class_names[index_predecido]}")
-    print(f"Con {confianza:.2f}% confianza.")
+    resultados = []
+    for nombre_completo, probabilidad in zip(nombres_personajes_anime, top_5_probabilidades):
+        nombre_personaje, nombre_anime = nombre_completo.split("-")
+        nombre_personaje = nombre_personaje.strip()
+        nombre_anime = nombre_anime.strip()
+        resultados.append((nombre_personaje, nombre_anime, probabilidad))
 
-    # Separar el nombre del personaje y el nombre del anime
-    nombre_personaje, nombre_anime = nombre_personaje_anime.split("-")
+    return resultados
 
-    # Eliminar espacios en blanco adicionales alrededor del nombre del personaje
-    nombre_personaje = nombre_personaje.strip()
-
-    # Eliminar espacios en blanco adicionales al inicio del nombre del anime
-    nombre_anime = nombre_anime.strip()
-
-    return nombre_personaje,nombre_anime,valor_numerico_confianza
 
 
 @app.route('/upload', methods=['POST'])
@@ -101,9 +92,9 @@ def upload_file():
 
         # Carga el modelo
         modelo_cargado = tf.keras.models.load_model(ruta_guardado)
-        nombre_personaje,nombre_anime,confianza = predecir_personajes(filename)
+        resultados = predecir_personajes(filename)
 
-        return render_template('upload.html', nombre_personaje=nombre_personaje,nombre_anime=nombre_anime, confianza=confianza, filename=file.filename)
+        return render_template('upload.html', resultados=resultados, filename=file.filename)
     else:
         flash('Error: Por favor selecciona y sube un archivo.', 'error')
         return render_template('upload.html')
