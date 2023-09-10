@@ -21,12 +21,18 @@ Se utilizaron las siguientes tecnologías para desarrollar la aplicación:
 - **Oracle Cloud** (Alojamiento de la aplicación web)
 - **Python** (Lenguaje de programación)
 
+## Uso del app
+Para consumidores, simplemente accede al link del sitio web y sube una imagen. Luego el sitio web te dirá la información del personaje.
+
+Para desarrolladores, corre `python app.py` para correr localmente el sitio web y accederlo en `127.0.0.1:5000`. Además, puede utilizar el cuaderno `cuaderno_entrenamiento_modelo.ipynb` para entrenar, evaluar y correr el modelo utilizado en este proyecto. El folder train tiene las imagenes de entrenamiento, test tiene las imagenes para evaluar el modelo, y validation para la validacion del modelo.
+
 ## Creditos
 **Paper fundamento:**
 [AniWho : A Quick and Accurate Way to Classify Anime Character Faces in Images](https://paperswithcode.com/paper/aniwho-a-quick-and-accurate-way-to-classify) de Martinus Grady Naftali, Jason Sebastian Sulistyawan, Kelvin Julian.
 
 **Datasets utilizados:**
 [Tagged Anime Illustrations](https://www.kaggle.com/datasets/mylesoneill/tagged-anime-illustrations) de Myles O'Neill.
+
 [Anime Face Dataset by Character Name](https://paperswithcode.com/dataset/anime-face-dataset-by-character-name) de Naftali et al.
 
 **Recursos utilizados para la detección de caras:**
