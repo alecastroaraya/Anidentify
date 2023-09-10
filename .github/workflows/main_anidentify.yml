@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'anidentify'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6BFA2D91405E4E8B8E51489F5023F7BC }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C89ECBE6754E4914A398408BB6085309 }}
