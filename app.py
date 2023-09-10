@@ -66,8 +66,6 @@ def detectar_cara(filename, cascade_file = "lbpcascade_animeface.xml"):
     if len(faces) > 0:
         (x, y, w, h) = faces[0]
         face = image[y:y+h, x:x+w]
-        #cv2.imshow("Cara detectada!", face)
-        cv2.waitKey(0)
         cv2.imwrite("out.png", face)
         cv2.imwrite("static/images/out.png", face)
         return True
