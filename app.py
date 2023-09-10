@@ -38,7 +38,7 @@ def allowed_file(filename):
 @app.route('/')
 # Esta ruta es la pagina principal, aqui se suben las imagenes
 def index():
-    return render_template('upload.html')
+    return render_template('index.html')
 
 def detectar_cara(filename, cascade_file = "lbpcascade_animeface.xml"):
     # Esta funcion utiliza lbpcascade_animeface como archivo de cascade para poder detectar especificamente caras de anime en las imagenes
@@ -127,13 +127,13 @@ def upload_file():
         cara_encontrada = detectar_cara(filename)
         if cara_encontrada:
             resultados = predecir_personajes("out.png")
-            return render_template('upload.html', resultados=resultados, filename=file.filename)
+            return render_template('index.html', resultados=resultados, filename=file.filename)
         else:
             flash('Error: No se detectaron caras. Por favor intenta con otra imagen.', 'error')
-            return render_template('upload.html')
+            return render_template('index.html')
     else:
         flash('Error: No subiste un archivo. Por favor selecciona y sube uno.', 'error')
-        return render_template('upload.html')
+        return render_template('index.html')
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
